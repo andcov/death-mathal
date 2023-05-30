@@ -32,13 +32,11 @@ function generateEquation() {
             lhs = `${lhs} + ${num}`;
             rhs += num;
             steps.push(`${lhs} = ${rhs} \\quad| - ${num}`);
-            equation = `${lhs} = ${rhs}`;
         } else if (op == "diff") {
             let num = rand(30) + 1;
             lhs = `${lhs} - ${num}`;
             rhs -= num;
             steps.push(`${lhs} = ${rhs} \\quad| + ${num}`);
-            equation = `${lhs} = ${rhs}`;
         } else if (op == "div") {
             let divs = [rhs, -rhs];
             for(let i = 2; i * i <= Math.abs(rhs); ++i) {
@@ -57,7 +55,6 @@ function generateEquation() {
                 `${lhs} = ${rhs} \\quad| \\cdot ${num}`
                 : `${lhs} = ${rhs} \\quad| \\cdot (${num})`
             );
-            equation = `${lhs} = ${rhs}`;
         } else if (op == "prod") {
             let num = rand(10) + 1;
             num = (rand(2) == 0) ? num : -num;
@@ -82,8 +79,8 @@ function generateEquation() {
                 `${lhs} = ${rhs} \\quad| : ${num}`
                 : `${lhs} = ${rhs} \\quad| : (${num})`
             );
-            equation = `${lhs} = ${rhs}`;
         }
+        equation = `${lhs} = ${rhs}`;
         last_op = op;
     }
 
@@ -159,7 +156,6 @@ $: if(stepIndex >= problem.steps.length) {
 .flex-container {
     display: flex;
     flex-direction: column;
-    width: 30em;
 }
 
 .flex-container > div {

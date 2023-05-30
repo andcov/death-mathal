@@ -194,7 +194,6 @@ function applyHint() {
 .flex-container {
     display: flex;
     flex-direction: column;
-    width: 30em;
 	flex-grow: 1;
 }
 
