@@ -17,6 +17,8 @@ and a computer can create millions of these exercises.</p>
 
 <p>I have also found that the kids that benefit from these exercises often perceive math as something terrible, akin to death, hence the name.</p>
 
+<a href="https://github.com/andcov" target="_blank" rel="noopener noreferrer">@andcov</a>
+
 <style>
     .metal {
         font-family: 'New Rocker', cursive;
