@@ -93,7 +93,6 @@ let stepIndex = 0;
 $: eq = "\\begin{align*}\n" + problem.steps.slice(0, stepIndex).join("\\\\ ").replaceAll(" = ", " &= ") + "\\end{align*}"
 
 let showAnswer = false;
-
 let guessAnswer;
 let wrongCheck = false;
 let correctCheck = false;
@@ -107,6 +106,27 @@ function checkAnswer() {
         wrongCheck = true;
         delay(1).then(() => wrongCheck = false);
     }
+}
+function showEntireSolution() {
+    showAnswer = true;
+    recursiveStepInc();
+}
+function recursiveStepInc() {
+    if(stepIndex < problem.steps.length) {
+        delay(0.1).then(() => {
+            stepIndex += 1
+            if(stepIndex < problem.steps.length) {
+                recursiveStepInc();
+            }
+        });
+    }
+}
+function nextQuestion() {
+    showAnswer = false;
+    stepIndex = 0;
+    problem = generateEquation();
+    guessAnswer = "";
+    pressNext = false;
 }
 
 $: if(stepIndex >= problem.steps.length) {
@@ -123,16 +143,14 @@ $: if(stepIndex >= problem.steps.length) {
         <button on:click={checkAnswer} class:wrongCheck="{wrongCheck}" class:correctCheck="{correctCheck}">Check Answer</button><br>
     </div>
 
-    {#if showAnswer}
+    {#if showAnswer && stepIndex > 0}
         <Katex math={eq} displayMode />
     {/if}
     <div class="solution row">
-        <button on:click={() => {
-            showAnswer = true;
-            stepIndex = problem.steps.length
-        }}>
+        <button on:click={showEntireSolution}>
             Show Entire Solution
         </button>
+
         <button on:click={() => {
             showAnswer = true; 
             stepIndex += 1;
@@ -142,13 +160,7 @@ $: if(stepIndex >= problem.steps.length) {
     </div>
 
     <div class="next-question row">
-    <button class="next-button" class:press-next="{pressNext}" on:click={() => {
-        problem = generateEquation();
-        showAnswer = false;
-        stepIndex = 0;
-        guessAnswer = "";
-        pressNext = false;
-    }}>Next Question</button>
+    <button class="next-button" class:press-next="{pressNext}" on:click={nextQuestion}>Next Question</button>
     </div>
 </div>
 
